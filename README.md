@@ -1,2 +1,2 @@
-# Grain_Nitrogen
-This GitHub repository contains all the relevant data, scripts, and documentation for our study on grain nitrogen in maize.
+# Grain Nitrogen in Maize
+This GitHub repository contains all relevant data, scripts, and documentation for our study on grain nitrogen in maize. It includes genome-wide association studies (GWAS) focused on maize grain nitrogen content using diverse landraces, as well as environmental GWAS (envGWAS) to link climatic variables with genetic variation. Additionally, the repository features population differentiation analyses using F<sub>ST</sub> between the Indian Chief and Jarvis maize lines, highlighting regions under potential selection related to nitrogen-use traits.
