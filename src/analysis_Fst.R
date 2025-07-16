@@ -14,10 +14,10 @@ library(vcfR); library(vegan); library(ggplot2); library(reshape2); library(vroo
 maize_n <- vroom("/Users/nirwantandukar/Documents/Research/data/Phenotypes/maize_nitrogen.csv") %>% dplyr::select(c(1,2))
 maize_n <- vroom("/Users/nirwantandukar/Documents/Research/data/Phenotypes/maize_inorg_N.csv") %>% dplyr::select(c(1,3))
 maize_n <- vroom("/Users/nirwantandukar/Documents/Research/data/Phenotypes/maize_OlsenP_all_data.csv") %>% dplyr::select(c(1,2))
+maize_n <- vroom("/Users/nirwantandukar/Documents/Research/data/Phenotypes/maize_nitrogen.csv") %>% dplyr::select(c(1,2))
 
-
-maize_n <- vroom("/Users/nirwantandukar/Documents/Research/data/Phenotypes/sorghum_nitrogen.csv") %>% dplyr::select(c(1,2))
-maize_n <- vroom("/Users/nirwantandukar/Documents/Research/data/Phenotypes/sorghum_OlsenP_TP.csv") %>% dplyr::select(c(1,3))
+maize_n <- vroom("/Users/nirwantandukar/Documents/Research/data/Phenotypes/maize_elevation.csv") %>% dplyr::select(c(1,2))
+#maize_n <- vroom("/Users/nirwantandukar/Documents/Research/data/Phenotypes/sorghum_OlsenP_TP.csv") %>% dplyr::select(c(1,3))
 maize_n <- maize_n[complete.cases(maize_n), ] # remove rows with NA
 
 # Sort and compute quantiles
@@ -39,7 +39,7 @@ vcf_dir <- "/Users/nirwantandukar/Documents/Research/data/maize_genotype/RomeroN
 vcf_file <- file.path(vcf_dir, "all_maize2.vcf.gz")
 
 vcf_dir <- "/Users/nirwantandukar/Documents/Research/data/sorghum_genotype/Lasky/"
-vcf_file <- file.path(vcf_dir, "sorghum_lasky_allchrom2.vcf.gz")
+vcf_file <- file.path(vcf_dir, "sorghum_lasky_allchrom2.biallelic.MAF01.vcf.gz")
 
 
 
