@@ -7,14 +7,25 @@ library(GenomicRanges)
 
 # 1) Read all your window files
 indir <- "/Users/nirwantandukar/Documents/Research/results/Indian_Jarvis/ANGSD_Fst/Jarvis/sliding_window"
+# Jarvis
+files <- list.files(indir, pattern="^chr[0-9]+_J01_J14\\.win100k_step10k\\.clean\\.tsv$", full.names = TRUE)
+
+
+
+indir <- "/Users/nirwantandukar/Documents/Research/results/Indian_Jarvis/ANGSD_Fst/Indian_Chief/sliding_window"
+# Indian Chief
 files <- list.files(indir, pattern="^chr[0-9]+_IC01_IC14\\.win100k_step10k\\.clean\\.tsv$", full.names = TRUE)
 
+# Load the files
 win <- vroom::vroom(files, col_types = "ciiiid") %>%  # chr,start,end,midPos,Nsites,Fst
   mutate(chr = factor(chr, levels=paste0("chr", 1:10))) %>% 
   arrange(chr, start)
+unique(win$chr)
 
 # 2) Choose a cutoff (top 1% genome-wide by default)
 cutoff <- quantile(win$Fst, probs = 0.99, na.rm = TRUE)
+# 2) Choose a cutoff (top 3% genome-wide by default)
+#cutoff <- quantile(win$Fst, probs = 0.97, na.rm = TRUE)
 cutoff
 
 win <- win %>% mutate(outlier = Fst >= cutoff)
@@ -43,6 +54,14 @@ plot <- ggplot(win, aes(pos_cum, Fst, color = chr)) +
 
 quartz()
 plot
+
+## make the table we’ll join back after overlaps
+top_tbl <- win %>%
+  filter(outlier) %>%
+  transmute(chr = as.character(chr),    # <- make types match GRanges-derived cols
+            start, end, midPos, Nsites, Fst)
+
+
 # 4) Convert top windows to GRanges for gene overlap
 top_win_gr <- with(win %>% filter(outlier), 
                    GRanges(seqnames = chr, ranges = IRanges(start = start, end = end)))
@@ -70,6 +89,7 @@ top_with_genes <- tibble(
   biotype   = mcols(genes_only)$biotype[ss]
 )
 
+
 ## Make sure join keys have the same type as in top_tbl
 top_tbl <- top_tbl %>% mutate(chr = as.character(chr))
 
@@ -80,7 +100,11 @@ top_annot <- top_with_genes %>%
                              "win_end"   = "end"))
 
 ## Write out if you want
-write.csv(top_annot,"Fst_top1pct_windows_with_genes.csv", row.names = F, quote=F)
+write.csv(top_annot,"Fst_top1pct_windows_with_genes_IC.csv", row.names = F, quote=F)
 getwd()
 ## Quick sanity check
 dplyr::glimpse(top_annot)
+
+
+
+
