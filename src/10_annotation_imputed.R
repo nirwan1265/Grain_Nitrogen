@@ -80,7 +80,7 @@ unique(combined_df$Chromosome)
 # 3. Write out the master file
 write.csv(
   combined_df,
-  "annotation_maize_NHx_allchr_GLM.csv",
+  "annotation_maize_TN_allchr_GLM.csv",
   row.names = FALSE,
   quote     = FALSE
 )

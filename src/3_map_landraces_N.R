@@ -19,7 +19,7 @@ library(grid)
 
 
 # Load and filter data
-dir_maize <- "/Users/nirwantandukar/Library/Mobile Documents/com~apple~CloudDocs/Research/data/Phenotype/"
+dir_maize <- "/Users/nirwantandukar/Library/Mobile Documents/com~apple~CloudDocs/Research/Data/Phenotype/"
 maize_geo <- read.csv(paste0(dir_maize, "taxa_geoloc_pheno.csv")) %>%
   dplyr::filter(
     sp == "Zea mays",
@@ -128,7 +128,9 @@ hist_plot <- ggplot(maize_df, aes(log_nhx, fill = ..x..)) +
              color = "red", 
              linetype = "dashed", 
              size = 0.8,
-             alpha = 0.7) +
+             alpha = 0.7) 
+
+hist_plot <- hist_plot +
   # Add text annotations
   annotate("text", 
            x = quantiles[1], 
@@ -178,7 +180,7 @@ getwd()
 
 
 
-GAPIT.Manhattan()
+
 
 
 

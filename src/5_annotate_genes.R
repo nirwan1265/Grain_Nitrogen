@@ -107,7 +107,9 @@ genes_only  <- ref_GRanges[mcols(ref_GRanges)$type == "gene"]
 ### USE THE PVALUE HERE FOR DOWNSTREAM PROCESS
 # Annotate all in one go
 models <- c("MLM", "MLMM", "BLINK", "FarmCPU","GLM")
+models <- c("MLM", "MLMM", "BLINK", "FarmCPU")
 dfs    <- list(mlm_raw, MLMM_raw, BLINK_raw, farmcpu_raw, GLM_raw)
+dfs    <- list(mlm_raw, MLMM_raw, BLINK_raw, farmcpu_raw)
 names(dfs) <- models
 
 all_ann <- lapply(models, function(m) {
@@ -176,6 +178,7 @@ gene_model_max <- annotated_df %>%
 
 # 2. Define the order you want the models to appear
 model_order <- c("MLM", "MLMM", "BLINK","FarmCPU", "GLM")
+model_order <- c("MLM", "MLMM", "BLINK","FarmCPU")
 
 # 3. Collapse for each gene
 final_summary <- gene_model_max %>%
@@ -223,7 +226,7 @@ head(final_summary_sorted)
 
 # Save the final summary to a CSV file
 write.csv(final_summary_sorted, 
-          "Final_Summary_GWAS_Results_MLM_MLMM_0.05_BLINK_FarmCPU_7_GLM_20.csv", 
+          "Final_Summary_GWAS_Results_MLM_MLMM_0.05_BLINK_FarmCPU_7.csv", 
           row.names = FALSE)
 
 
@@ -235,7 +238,7 @@ getwd()
 ### VENN DIAGRAM
 
 # Define p-value threshold
-p_thresh <- 1
+p_thresh <- 7
 
 # Filter significant genes per model
 mlm_genes     <- annotated_df %>% filter(Model == "MLM", P.value < p_thresh)     %>% pull(GeneID) %>% unique()
